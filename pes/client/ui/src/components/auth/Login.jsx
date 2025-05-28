@@ -27,26 +27,10 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
 
-  // Quick login presets for testing
-  const quickLogins = [
-    { label: 'Director', email: 'director@sunflowerpreschool.com', password: 'director123' },
-    { label: 'Head Teacher', email: 'ms.emily@sunflowerpreschool.com', password: 'teacher123' },
-    { label: 'Teacher', email: 'mr.david@sunflowerpreschool.com', password: 'teacher123' },
-    { label: 'Parent', email: 'parent@example.com', password: 'parent123' },
-  ];
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-    setError('');
-  };
-
-  const handleQuickLogin = (preset) => {
-    setFormData({
-      email: preset.email,
-      password: preset.password,
     });
     setError('');
   };
@@ -136,33 +120,6 @@ const Login = () => {
               >
                 {loading ? <CircularProgress size={24} /> : 'Sign In'}
               </Button>
-            </Box>
-
-            {/* Quick Login Section for Demo */}
-            <Box sx={{ mt: 3, pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
-              <Typography variant="body2" color="text.secondary" align="center" gutterBottom>
-                Quick Login for Demo:
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
-                {quickLogins.map((preset) => (
-                  <Button
-                    key={preset.label}
-                    size="small"
-                    variant="outlined"
-                    onClick={() => handleQuickLogin(preset)}
-                    disabled={loading}
-                    sx={{ minWidth: 100 }}
-                  >
-                    {preset.label}
-                  </Button>
-                ))}
-              </Box>
-            </Box>
-
-            <Box sx={{ mt: 2, p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="caption" color="text.secondary" align="center" display="block">
-                💡 Demo Tip: Use the quick login buttons above or enter credentials manually
-              </Typography>
             </Box>
           </CardContent>
         </Card>
