@@ -55,6 +55,7 @@ public class Classes {
     String status;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = false)
     Grade grade;
 
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

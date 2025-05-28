@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class DataInitializer implements ApplicationRunner {
     private final AccountRepo accountRepo;
     private final ClassesRepo classesRepo;
     private final LessonRepo lessonRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final AppConfig.SimplePasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
