@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/activities")
+@RequestMapping("/api/v1/activities")
 @RequiredArgsConstructor
 @Tag(name = "Activity Management", description = "APIs for managing activities")
 public class ActivityController {
