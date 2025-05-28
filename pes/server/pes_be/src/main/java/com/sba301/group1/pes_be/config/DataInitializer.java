@@ -162,11 +162,20 @@ public class DataInitializer implements ApplicationRunner {
     }
 
     private void initializeClasses() {
-        if (classesRepo.count() == 0) {
+        // More specific check - check if any class with specific names already exists
+        boolean seedClassExists = classesRepo.findAll().stream()
+                .anyMatch(c -> "Sunflower Seeds (3-year-olds)".equals(c.getName()));
+        boolean budClassExists = classesRepo.findAll().stream()
+                .anyMatch(c -> "Sunflower Buds (4-year-olds)".equals(c.getName()));
+        boolean bloomClassExists = classesRepo.findAll().stream()
+                .anyMatch(c -> "Sunflower Blooms (5-year-olds)".equals(c.getName()));
+                
+        if (!seedClassExists && !budClassExists && !bloomClassExists) {
             log.info("Creating default preschool classes...");
             
             Account headTeacher = accountRepo.findByEmail("ms.emily@sunflowerpreschool.com").orElse(null);
             Account teacher2 = accountRepo.findByEmail("mr.david@sunflowerpreschool.com").orElse(null);
+            Account admin = accountRepo.findByEmail("admin@sunflowerpreschool.com").orElse(null);
             
             Classes sunflowerSeedClass = Classes.builder()
                     .name("Sunflower Seeds (3-year-olds)")
@@ -176,7 +185,7 @@ public class DataInitializer implements ApplicationRunner {
                     .endDate("2025-06-15")
                     .status("ACTIVE")
                     .grade(Grade.SEED)
-                    .teacher(headTeacher)
+                    .teacher(admin)
                     .build();
             classesRepo.save(sunflowerSeedClass);
 

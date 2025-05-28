@@ -55,7 +55,7 @@ public class Classes {
     String status;
 
     @Enumerated(EnumType.STRING)
-    @Column(unique = false)
+    @Column(nullable = true, unique = false)
     Grade grade;
 
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -64,6 +64,6 @@ public class Classes {
     List<Schedule> scheduleList;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "`teacher_id`")
+    @JoinColumn(name = "`teacher_id`", unique = false)
     Account teacher;
 }
