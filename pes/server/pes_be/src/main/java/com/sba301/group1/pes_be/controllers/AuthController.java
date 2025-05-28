@@ -3,11 +3,8 @@ package com.sba301.group1.pes_be.controllers;
 import com.sba301.group1.pes_be.requests.LoginRequest;
 import com.sba301.group1.pes_be.requests.ResponseObject;
 import com.sba301.group1.pes_be.services.AuthService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,17 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseObject> login(@RequestBody LoginRequest request, HttpServletResponse response) {
-        return authService.login(request, response);
-    }
-
-    @GetMapping("/logout")
-    public ResponseEntity<ResponseObject> logout(HttpServletResponse response) {
-        return authService.logout(response);
-    }
-
-    @PostMapping("/refresh")
-    public ResponseEntity<ResponseObject> refresh(HttpServletRequest request, HttpServletResponse response) {
-        return authService.refresh(request, response);
+    public ResponseEntity<ResponseObject> login(@RequestBody LoginRequest request) {
+        return authService.login(request);
     }
 }

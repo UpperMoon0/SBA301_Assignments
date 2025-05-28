@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -61,16 +60,7 @@ public class Classes {
     @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    List<StudentClass> studentClassList;
-
-    @OneToMany(mappedBy = "classes", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     List<Schedule> scheduleList;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "`syllabus_id`")
-    Syllabus syllabus;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "`teacher_id`")
