@@ -1,4 +1,4 @@
-package com.sba301.group1.pes_be.confgs;
+package com.sba301.group1.pes_be.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
