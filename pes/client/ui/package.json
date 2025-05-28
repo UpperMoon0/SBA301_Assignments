@@ -11,7 +11,16 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@mui/material": "^6.1.9",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.9",
+    "@mui/x-date-pickers": "^7.22.2",
+    "@mui/x-date-pickers-pro": "^7.22.2",
+    "dayjs": "^1.11.13",
+    "react-router-dom": "^6.28.0",
+    "axios": "^1.7.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
