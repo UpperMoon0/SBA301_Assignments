@@ -1,5 +1,7 @@
 /* Global Styles for Sunflower Preschool App */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,10 +9,13 @@
 }
 
 body {
-  font-family: 'Roboto', 'Comic Sans MS', cursive, sans-serif;
-  background-color: #FFF9C4; /* Warm light yellow */
-  color: #3E2723; /* Dark brown */
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #FFF9C4; 
+  color: #2C2C2C;
   line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -54,6 +59,34 @@ button, .MuiButton-root {
 /* Custom input field styles */
 .MuiTextField-root {
   margin-bottom: 8px;
+}
+
+/* Typography improvements */
+.MuiTypography-root {
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+}
+
+.MuiTypography-body1,
+.MuiTypography-body2 {
+  font-weight: 400 !important;
+  color: #374151 !important;
+}
+
+/* Button text improvements */
+.MuiButton-root {
+  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
 }
 
 /* Loading animation */
@@ -101,6 +134,22 @@ button, .MuiButton-root {
 .MuiButton-root:focus-visible {
   outline: 2px solid #FFB74D;
   outline-offset: 2px;
+}
+
+/* Enhanced text contrast for better readability */
+.MuiTableCell-root {
+  color: #1F2937 !important;
+  font-weight: 400 !important;
+}
+
+.MuiTableCell-head {
+  font-weight: 600 !important;
+  color: #111827 !important;
+}
+
+/* Better contrast for secondary text */
+.MuiTypography-colorTextSecondary {
+  color: #6B7280 !important;
 }
 
 /* Custom animations for page transitions */
