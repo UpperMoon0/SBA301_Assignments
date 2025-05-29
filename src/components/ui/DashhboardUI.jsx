@@ -28,8 +28,7 @@ export default function DashboardUI({navigate, homeUrl}) {
             navigation={navigate}
             branding={
                 {
-                    logo: <img src="/img.png" alt="logo"/>,
-                    title: "PES",
+                    title: "School Schedule Management",
                     homeUrl: homeUrl
                 }
             }

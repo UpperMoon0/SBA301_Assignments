@@ -111,13 +111,10 @@ const signInPage = async (provider, formData) => {
                         const role = decoded.role;
 
                         switch (role.toLowerCase()) {
-                            case 'manager':
-                                window.location.href = "/manager/dashboard";
-                                break;
-
-                            case 'parent':
+                            case 'staff':
+                            case 'admin':
                                 setTimeout(() => {
-                                    window.location.href = "/parent/form";
+                                    window.location.href = "/staff/activities";
                                 }, 500)
                                 break;
                             default:

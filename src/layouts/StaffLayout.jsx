@@ -1,32 +1,24 @@
 import DashboardUI from "../components/ui/DashhboardUI.jsx";
-import {
-    InsertDriveFile,
-    CalendarToday,
-    Schedule,
-    Event,
-    ViewWeek,
-    Assignment
+import { 
+    Assignment,
+    Schedule, 
+    ViewWeek
 } from "@mui/icons-material";
 
-function ParentLayout() {
+function StaffLayout() {
     const navigate = [
         {
-            segment: 'parent/form',
-            title: 'Admission Form',
-            icon: <InsertDriveFile/>
-        },
-        {
-            segment: 'parent/activities',
+            segment: 'staff/activities',
             title: 'Activity Management',
             icon: <Assignment/>
         },
         {
-            segment: 'parent/schedules',
+            segment: 'staff/schedules',
             title: 'Schedule Management',
             icon: <Schedule/>
         },
         {
-            segment: 'parent/weekly-schedules',
+            segment: 'staff/weekly-schedules',
             title: 'Weekly Schedules',
             icon: <ViewWeek/>
         }
@@ -34,9 +26,9 @@ function ParentLayout() {
     return (
         <DashboardUI
             navigate={navigate}
-            homeUrl={'/parent/form'}
+            homeUrl={'/staff/activities'}
         />
     )
 }
 
-export default ParentLayout;
+export default StaffLayout;

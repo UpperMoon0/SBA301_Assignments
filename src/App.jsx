@@ -1,12 +1,10 @@
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import LoginPage from "./page/LoginPage.jsx";
-import {Home} from "./page/Home.jsx";
 import {SnackbarProvider} from "notistack";
 import './styles/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ParentLayout from "./layouts/ParentLayout.jsx";
+import StaffLayout from "./layouts/StaffLayout.jsx";
 import ProtectRouter from "./config/ProtectRouter.jsx";
-import AdmissionForm from "./components/parent/Form.jsx";
 import ActivityManagement from "./components/activities/ActivityManagement.jsx";
 import ScheduleManagement from "./components/schedules/ScheduleManagement.jsx";
 import WeeklyScheduleManagement from "./components/schedules/WeeklyScheduleManagement.jsx";
@@ -18,28 +16,20 @@ const router = createBrowserRouter([
         element: <LoginPage/>
     },
     {
-        path: "/home",
-        element: <Home/>
-    },
-    {
         path: '*',
-        element: <Navigate to='/home'/>
+        element: <Navigate to='/staff/activities'/>
     },
     {
-        path: "/parent",
+        path: "/staff",
         element: (
-            <ProtectRouter allowedRoles={["PARENT"]}>
-                <ParentLayout/>
+            <ProtectRouter allowedRoles={["STAFF", "ADMIN"]}>
+                <StaffLayout/>
             </ProtectRouter>
         ),
         children: [
             {
                 index: true,
-                element: <Navigate to="/parent/form"/>
-            },
-            {
-                path: 'form',
-                element: <AdmissionForm/>
+                element: <Navigate to="/staff/activities"/>
             },
             {
                 path: 'activities',
@@ -58,7 +48,6 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-
 
     return (
         <>

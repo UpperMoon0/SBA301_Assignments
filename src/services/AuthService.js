@@ -1,16 +1,16 @@
 // Local authentication service - no API calls needed for prototype
 const DEMO_USERS = [
     {
-        email: 'parent@test.com',
+        email: 'staff@school.com',
         password: 'password123',
-        name: 'John Doe',
-        role: 'PARENT'
+        name: 'Admission Staff',
+        role: 'STAFF'
     },
     {
-        email: 'manager@test.com', 
+        email: 'admin@school.com',
         password: 'password123',
-        name: 'Jane Smith',
-        role: 'MANAGER'
+        name: 'School Administrator',
+        role: 'ADMIN'
     }
 ];
 
