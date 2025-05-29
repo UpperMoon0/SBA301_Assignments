@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { getCurrentUser } from '../services/AuthService.js';
 
-function ProtectRouter({ children, allowedRoles = [] }) {
+function ProtectedRoute({ children, allowedRoles = [] }) {
     const currentUser = getCurrentUser();
     
     // If no user is logged in, redirect to login
@@ -18,4 +18,4 @@ function ProtectRouter({ children, allowedRoles = [] }) {
     return children;
 }
 
-export default ProtectRouter;
+export default ProtectedRoute;

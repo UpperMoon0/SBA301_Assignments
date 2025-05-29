@@ -4,7 +4,7 @@ import {SnackbarProvider} from "notistack";
 import './styles/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import StaffLayout from "./layouts/StaffLayout.jsx";
-import ProtectRouter from "./config/ProtectRouter.jsx";
+import ProtectedRoute from "./config/ProtectedRoute.jsx";
 import ActivityManagement from "./components/activities/ActivityManagement.jsx";
 import ScheduleManagement from "./components/schedules/ScheduleManagement.jsx";
 import WeeklyScheduleManagement from "./components/schedules/WeeklyScheduleManagement.jsx";
@@ -22,9 +22,9 @@ const router = createBrowserRouter([
     {
         path: "/staff",
         element: (
-            <ProtectRouter allowedRoles={["STAFF", "ADMIN"]}>
+            <ProtectedRoute allowedRoles={["STAFF", "ADMIN"]}>
                 <StaffLayout/>
-            </ProtectRouter>
+            </ProtectedRoute>
         ),
         children: [
             {
