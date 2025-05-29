@@ -12,7 +12,7 @@ import {SignInPage} from "@toolpad/core";
 import {useEffect, useState} from "react";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {enqueueSnackbar} from "notistack";
-import {login, logout} from "../services/AuthService.jsx";
+import {login, logout} from "../services/AuthService.js";
 
 const providers = [
     {

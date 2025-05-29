@@ -25,7 +25,7 @@ import {useEffect, useState} from "react";
 import {Add, Close, CloudUpload, Info} from '@mui/icons-material';
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import {getForms} from "../../services/ParentService.jsx";
+import {getForms} from "../../services/ParentService.js";
 import '../../styles/Parent/Form.css'
 
 function RenderTable({forms, openDetailModalFunc, setSelectedFormFunc}) {
