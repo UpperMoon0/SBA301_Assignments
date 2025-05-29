@@ -130,10 +130,8 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                 sx: { borderRadius: 3 }
             }}
         >
-            <DialogTitle sx={{ pb: 1 }}>
-                <Typography variant="h5" fontWeight="bold">
-                    {weeklySchedule ? 'Edit Weekly Schedule' : 'Create New Weekly Schedule'}
-                </Typography>
+            <DialogTitle sx={{ pb: 1, fontWeight: 'bold' }}>
+                {weeklySchedule ? 'Edit Weekly Schedule' : 'Create New Weekly Schedule'}
             </DialogTitle>
             
             <DialogContent>

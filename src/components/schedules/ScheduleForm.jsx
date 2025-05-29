@@ -110,10 +110,8 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                 sx: { borderRadius: 3 }
             }}
         >
-            <DialogTitle sx={{ pb: 1 }}>
-                <Typography variant="h5" fontWeight="bold">
-                    {schedule ? 'Edit Schedule' : 'Create New Schedule'}
-                </Typography>
+            <DialogTitle sx={{ pb: 1, fontWeight: 'bold' }}>
+                {schedule ? 'Edit Schedule' : 'Create New Schedule'}
             </DialogTitle>
             
             <DialogContent>

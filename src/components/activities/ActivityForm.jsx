@@ -99,10 +99,8 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
                 sx: { borderRadius: 3 }
             }}
         >
-            <DialogTitle sx={{ pb: 1 }}>
-                <Typography variant="h5" fontWeight="bold">
-                    {activity ? 'Edit Activity' : 'Create New Activity'}
-                </Typography>
+            <DialogTitle sx={{ pb: 1, fontWeight: 'bold' }}>
+                {activity ? 'Edit Activity' : 'Create New Activity'}
             </DialogTitle>
             
             <DialogContent>
