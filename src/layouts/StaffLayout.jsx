@@ -1,4 +1,4 @@
-import DashboardUI from "../components/ui/DashhboardUI.jsx";
+import Dashboard from "../components/ui/Dashhboard.jsx";
 import { 
     Assignment,
     Schedule, 
@@ -24,7 +24,7 @@ function StaffLayout() {
         }
     ]
     return (
-        <DashboardUI
+        <Dashboard
             navigate={navigate}
             homeUrl={'/staff/activities'}
         />

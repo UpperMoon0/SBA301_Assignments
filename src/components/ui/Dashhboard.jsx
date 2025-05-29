@@ -3,7 +3,7 @@ import {useState} from "react";
 import { AppProvider as ReactRouterAppProvider, DashboardLayout } from '@toolpad/core';
 import { Outlet } from 'react-router-dom';
 
-export default function DashboardUI({navigate, homeUrl}) {
+export default function Dashboard({navigate, homeUrl}) {
     const [session, setSession] = useState(
         localStorage.getItem("user") ?
             JSON.parse(localStorage.getItem("user"))
