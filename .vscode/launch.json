@@ -2,50 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch React App",
-      "type": "node",
+      "name": "Run Assignment 1 (Vite Dev)",
+      "type": "node-terminal",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "serverReadyAction": {
-        "pattern": "Local:   (https?://localhost:[0-9]+)",
-        "uriFormat": "%s",
-        "action": "openExternally"
-      }
-    },
-    {
-      "name": "Launch Chrome against localhost",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMaps": true,
-      "userDataDir": "${workspaceFolder}/.vscode/chrome_debug_profile"
-    },
-    {
-      "name": "Attach to Chrome",
-      "type": "chrome",
-      "request": "attach",
-      "port": 9222,
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMaps": true
-    },
-    {
-      "name": "Launch Edge against localhost",
-      "type": "msedge",
-      "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMaps": true,
-      "userDataDir": "${workspaceFolder}/.vscode/edge_debug_profile"
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Launch React App + Chrome",
-      "configurations": ["Launch React App", "Launch Chrome against localhost"],
-      "stopAll": true
+      "command": "npm run dev",
+      "cwd": "${workspaceFolder}/assignment_1"
     }
   ]
 }
