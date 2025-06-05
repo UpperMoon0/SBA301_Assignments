@@ -173,46 +173,7 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
                         </Select>
                     </FormControl>
                     
-                    {/* Materials Section */}
-                    <Box sx={{ mb: 1 }}>
-                        <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                            Materials Needed
-                        </Typography>
-                        
-                        {/* Material Input */}
-                        <Box display="flex" gap={1} mb={2}>
-                            <TextField
-                                fullWidth
-                                label="Add Material"
-                                value={materialInput}
-                                onChange={(e) => setMaterialInput(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                                variant="outlined"
-                                size="small"
-                            />
-                            <Button
-                                variant="contained"
-                                onClick={handleAddMaterial}
-                                disabled={!materialInput.trim()}
-                                sx={{ minWidth: 'auto', px: 3 }}
-                            >
-                                Add
-                            </Button>
-                        </Box>
-                        
-                        {/* Materials List */}
-                        <Box display="flex" flexWrap="wrap" gap={1}>
-                            {formData.materials.map((material, index) => (
-                                <Chip
-                                    key={index}
-                                    label={material}
-                                    onDelete={() => handleRemoveMaterial(material)}
-                                    color="primary"
-                                    variant="outlined"
-                                />
-                            ))}
-                        </Box>
-                    </Box>
+                    
                 </Box>
             </DialogContent>
             

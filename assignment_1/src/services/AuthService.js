@@ -1,24 +1,11 @@
 // Local authentication service - no API calls needed for prototype
-const DEMO_USERS = [
-    {
-        email: 'staff@school.com',
-        password: 'password123',
-        name: 'Admission Staff',
-        role: 'STAFF'
-    },
-    {
-        email: 'admin@school.com',
-        password: 'password123',
-        name: 'School Administrator',
-        role: 'ADMIN'
-    }
-];
+import { accounts } from '../data/accounts.js';
 
 export const login = async (email, password) => {
     // Simulate async operation
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    const user = DEMO_USERS.find(u => u.email === email && u.password === password);
+    const user = accounts.find(u => u.email === email && u.password === password);
     
     if (user) {
         // Create a simple token simulation
