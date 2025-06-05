@@ -56,14 +56,9 @@ function ScheduleList({ schedules, classes, activities, onEdit, onDelete, onCrea
         // Calculate total duration of all activities
         const totalDuration = activityIds.reduce((total, activityId) => {
             const activity = activities.find(act => act.id === activityId);
-            return total + (activity ? activity.duration : 0);
+            const duration = activity ? parseInt(activity.duration) || 0 : 0;
+            return total + duration;
         }, 0);
-        
-        console.log('ScheduleList - calculateEndTime debug:');
-        console.log('Start time:', startTime);
-        console.log('Activity IDs:', activityIds);
-        console.log('Available activities:', activities);
-        console.log('Total duration calculated:', totalDuration);
         
         if (totalDuration === 0) {
             return startTime;
@@ -83,9 +78,7 @@ function ScheduleList({ schedules, classes, activities, onEdit, onDelete, onCrea
         const formattedHours = endHours.toString().padStart(2, '0');
         const formattedMinutes = endMinutes.toString().padStart(2, '0');
         
-        const result = `${formattedHours}:${formattedMinutes}`;
-        console.log('Calculated end time:', result);
-        return result;
+        return `${formattedHours}:${formattedMinutes}`;
     };
 
     const getTimeSlot = (schedule) => {

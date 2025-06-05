@@ -119,7 +119,8 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
         }
         return formData.activities.reduce((total, activityId) => {
             const activity = activities.find(act => act.id === activityId);
-            return total + (activity ? activity.duration : 0);
+            const duration = activity ? parseInt(activity.duration) || 0 : 0;
+            return total + duration;
         }, 0);
     };
 
@@ -129,12 +130,6 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
         }
         
         const totalDuration = getTotalDuration();
-        console.log('ScheduleForm - calculateEndTime debug:');
-        console.log('Start time:', formData.startTime);
-        console.log('Selected activity IDs:', formData.activities);
-        console.log('Available activities:', activities);
-        console.log('Total duration calculated:', totalDuration);
-        
         if (totalDuration === 0) {
             return '';
         }
@@ -153,9 +148,7 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
         const formattedHours = endHours.toString().padStart(2, '0');
         const formattedMinutes = endMinutes.toString().padStart(2, '0');
         
-        const result = `${formattedHours}:${formattedMinutes}`;
-        console.log('Calculated end time:', result);
-        return result;
+        return `${formattedHours}:${formattedMinutes}`;
     };
 
     const getTimeSlot = () => {
@@ -283,9 +276,21 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                         {/* Activity Selection Info */}
                         <Box mt={2}>
                             {formData.activities.length > 0 ? (
-                                <Typography variant="body2" color="success.main">
-                                    ✓ {formData.activities.length} activities selected
-                                </Typography>
+                                <Box>
+                                    <Typography variant="body2" color="success.main">
+                                        ✓ {formData.activities.length} activities selected
+                                    </Typography>
+                                    {formData.startTime && (
+                                        <Typography variant="body2" color="info.main" sx={{ mt: 1 }}>
+                                            📅 Total duration: {getTotalDuration()} minutes
+                                        </Typography>
+                                    )}
+                                    {formData.startTime && formData.activities.length > 0 && (
+                                        <Typography variant="body2" color="primary.main" sx={{ mt: 1 }}>
+                                            🕐 Time slot: {getTimeSlot()}
+                                        </Typography>
+                                    )}
+                                </Box>
                             ) : (
                                 <Typography variant="body2" color="warning.main">
                                     ⚠ Please select at least one activity

@@ -78,7 +78,12 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
 
     const handleSubmit = () => {
         if (formData.name && formData.type && formData.duration && formData.ageGroup) {
-            onSave(formData);
+            // Ensure duration is stored as a number
+            const submitData = {
+                ...formData,
+                duration: parseInt(formData.duration) || 0
+            };
+            onSave(submitData);
             onClose();
         }
     };
