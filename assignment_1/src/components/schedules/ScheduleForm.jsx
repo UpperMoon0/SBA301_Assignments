@@ -129,6 +129,12 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
         }
         
         const totalDuration = getTotalDuration();
+        console.log('ScheduleForm - calculateEndTime debug:');
+        console.log('Start time:', formData.startTime);
+        console.log('Selected activity IDs:', formData.activities);
+        console.log('Available activities:', activities);
+        console.log('Total duration calculated:', totalDuration);
+        
         if (totalDuration === 0) {
             return '';
         }
@@ -147,7 +153,9 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
         const formattedHours = endHours.toString().padStart(2, '0');
         const formattedMinutes = endMinutes.toString().padStart(2, '0');
         
-        return `${formattedHours}:${formattedMinutes}`;
+        const result = `${formattedHours}:${formattedMinutes}`;
+        console.log('Calculated end time:', result);
+        return result;
     };
 
     const getTimeSlot = () => {

@@ -35,6 +35,30 @@ export const schedules = [
         classId: 2,
         createdDate: "2024-01-17",
         modifiedDate: "2024-01-17"
+    },
+    {
+        id: 4,
+        name: "Thursday Extended Session",
+        dayOfWeek: "Thursday",
+        startTime: "10:00",
+        endTime: "12:15", // This will be incorrect - should be calculated dynamically
+        timeSlot: "10:00-12:15", // This will be incorrect - should be calculated dynamically
+        activities: [2, 4, 5], // Art and Craft (45min) + Outdoor Play (60min) + Music and Movement (30min) = 135min (2hr 15min)
+        classId: 1,
+        createdDate: "2024-01-18",
+        modifiedDate: "2024-01-18"
+    },
+    {
+        id: 5,
+        name: "Friday Test Schedule",
+        dayOfWeek: "Friday",
+        startTime: "13:30",
+        endTime: "16:30", // WRONG! Should be 17:00
+        timeSlot: "13:30-16:30", // WRONG! Should be 13:30-17:00
+        activities: [1, 7], // Morning Circle Time (30min) + Extended Learning Session (180min) = 210min (3hr 30min)
+        classId: 2,
+        createdDate: "2024-01-20",
+        modifiedDate: "2024-01-20"
     }
 ];
 

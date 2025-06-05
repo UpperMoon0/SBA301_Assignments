@@ -48,6 +48,57 @@ function ScheduleList({ schedules, classes, activities, onEdit, onDelete, onCrea
         }).join(', ');
     };
 
+    const calculateEndTime = (startTime, activityIds) => {
+        if (!startTime || !activityIds || activityIds.length === 0) {
+            return startTime || '';
+        }
+        
+        // Calculate total duration of all activities
+        const totalDuration = activityIds.reduce((total, activityId) => {
+            const activity = activities.find(act => act.id === activityId);
+            return total + (activity ? activity.duration : 0);
+        }, 0);
+        
+        console.log('ScheduleList - calculateEndTime debug:');
+        console.log('Start time:', startTime);
+        console.log('Activity IDs:', activityIds);
+        console.log('Available activities:', activities);
+        console.log('Total duration calculated:', totalDuration);
+        
+        if (totalDuration === 0) {
+            return startTime;
+        }
+        
+        // Parse the start time
+        const [startHours, startMinutes] = startTime.split(':').map(Number);
+        
+        // Calculate total minutes from start of day
+        let totalMinutes = (startHours * 60) + startMinutes + totalDuration;
+        
+        // Calculate end hours and minutes
+        const endHours = Math.floor(totalMinutes / 60) % 24; // Handle day overflow
+        const endMinutes = totalMinutes % 60;
+        
+        // Format with leading zeros
+        const formattedHours = endHours.toString().padStart(2, '0');
+        const formattedMinutes = endMinutes.toString().padStart(2, '0');
+        
+        const result = `${formattedHours}:${formattedMinutes}`;
+        console.log('Calculated end time:', result);
+        return result;
+    };
+
+    const getTimeSlot = (schedule) => {
+        // Extract start time from either startTime field or timeSlot field
+        let startTime = schedule.startTime;
+        if (!startTime && schedule.timeSlot) {
+            startTime = schedule.timeSlot.split('-')[0];
+        }
+        
+        const endTime = calculateEndTime(startTime, schedule.activities);
+        return startTime && endTime ? `${startTime}-${endTime}` : (schedule.timeSlot || '');
+    };
+
     const getDayColor = (day) => {
         const colors = {
             'Monday': 'primary',
@@ -141,7 +192,7 @@ function ScheduleList({ schedules, classes, activities, onEdit, onDelete, onCrea
                                                 size="small"
                                             />
                                         </TableCell>
-                                        <TableCell align="center">{schedule.timeSlot}</TableCell>
+                                        <TableCell align="center">{getTimeSlot(schedule)}</TableCell>
                                         <TableCell align="center">{getClassName(schedule.classId)}</TableCell>
                                         <TableCell align="center">
                                             <Typography variant="body2" sx={{ maxWidth: 200 }}>

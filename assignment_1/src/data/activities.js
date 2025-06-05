@@ -65,5 +65,16 @@ export const activities = [
         ageGroup: "2-5 years",
         createdDate: "2024-01-14",
         modifiedDate: "2024-01-14"
+    },
+    {
+        id: 7,
+        name: "Extended Learning Session",
+        description: "Long form educational activities and project work",
+        duration: 180, // 3 hours
+        type: "Educational",
+        materials: ["Learning materials", "Project supplies", "Workbooks"],
+        ageGroup: "4-5 years",
+        createdDate: "2024-01-19",
+        modifiedDate: "2024-01-19"
     }
 ];
