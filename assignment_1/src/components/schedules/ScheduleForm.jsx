@@ -89,6 +89,9 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
     };
 
     const getActivityOptions = () => {
+        if (!activities || activities.length === 0) {
+            return [];
+        }
         return activities.map(activity => ({
             id: activity.id,
             label: activity.name,
@@ -98,6 +101,9 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
     };
 
     const getSelectedActivities = () => {
+        if (!activities || activities.length === 0) {
+            return [];
+        }
         return activities.filter(activity => formData.activities.includes(activity.id))
             .map(activity => ({
                 id: activity.id,
@@ -108,6 +114,9 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
     };
 
     const getTotalDuration = () => {
+        if (!activities || activities.length === 0) {
+            return 0;
+        }
         return formData.activities.reduce((total, activityId) => {
             const activity = activities.find(act => act.id === activityId);
             return total + (activity ? activity.duration : 0);
@@ -115,20 +124,30 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
     };
 
     const calculateEndTime = () => {
-        if (!formData.startTime || formData.activities.length === 0) {
+        if (!formData.startTime || formData.activities.length === 0 || !activities || activities.length === 0) {
             return '';
         }
         
         const totalDuration = getTotalDuration();
-        const [hours, minutes] = formData.startTime.split(':').map(Number);
-        const startDate = new Date();
-        startDate.setHours(hours, minutes, 0, 0);
+        if (totalDuration === 0) {
+            return '';
+        }
         
-        const endDate = new Date(startDate.getTime() + totalDuration * 60000);
-        const endHours = endDate.getHours().toString().padStart(2, '0');
-        const endMinutes = endDate.getMinutes().toString().padStart(2, '0');
+        // Parse the start time
+        const [startHours, startMinutes] = formData.startTime.split(':').map(Number);
         
-        return `${endHours}:${endMinutes}`;
+        // Calculate total minutes from start of day
+        let totalMinutes = (startHours * 60) + startMinutes + totalDuration;
+        
+        // Calculate end hours and minutes
+        const endHours = Math.floor(totalMinutes / 60) % 24; // Handle day overflow
+        const endMinutes = totalMinutes % 60;
+        
+        // Format with leading zeros
+        const formattedHours = endHours.toString().padStart(2, '0');
+        const formattedMinutes = endMinutes.toString().padStart(2, '0');
+        
+        return `${formattedHours}:${formattedMinutes}`;
     };
 
     const getTimeSlot = () => {
@@ -211,20 +230,6 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                         </Select>
                     </FormControl>
 
-                    {/* Calculated End Time Display */}
-                    {formData.startTime && formData.activities.length > 0 && (
-                        <Box sx={{ mb: 1, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-                            <Typography variant="body2" color="text.secondary" gutterBottom>
-                                Calculated Schedule:
-                            </Typography>
-                            <Typography variant="h6" color="primary">
-                                {formData.startTime} - {calculateEndTime()}
-                            </Typography>
-                            <Typography variant="caption" color="text.secondary">
-                                Duration: {getTotalDuration()} minutes
-                            </Typography>
-                        </Box>
-                    )}
                     
                     {/* Activities Section */}
                     <Box sx={{ mb: 1 }}>
@@ -271,11 +276,11 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                         <Box mt={2}>
                             {formData.activities.length > 0 ? (
                                 <Typography variant="body2" color="success.main">
-                                    ✓ {formData.activities.length} activities selected • Total Duration: {getTotalDuration()} minutes
+                                    ✓ {formData.activities.length} activities selected
                                 </Typography>
                             ) : (
                                 <Typography variant="body2" color="warning.main">
-                                    ⚠ Please select at least one activity to calculate schedule end time
+                                    ⚠ Please select at least one activity
                                 </Typography>
                             )}
                         </Box>
