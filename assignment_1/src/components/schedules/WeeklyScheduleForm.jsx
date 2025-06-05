@@ -135,20 +135,21 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
             </DialogTitle>
             
             <DialogContent>
-                <Grid container spacing={3} sx={{ mt: 1 }}>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Weekly Schedule Name"
-                            value={formData.name}
-                            onChange={handleInputChange('name')}
-                            required
-                            variant="outlined"
-                            placeholder="e.g., Week 1 - Introduction Activities"
-                        />
-                    </Grid>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
+                    {/* Weekly Schedule Name */}
+                    <TextField
+                        fullWidth
+                        label="Weekly Schedule Name"
+                        value={formData.name}
+                        onChange={handleInputChange('name')}
+                        required
+                        variant="outlined"
+                        placeholder="e.g., Week 1 - Introduction Activities"
+                        sx={{ mb: 1 }}
+                    />
                     
-                    <Grid item xs={6}>
+                    {/* Week Start Date */}
+                    <Box sx={{ mb: 1 }}>
                         <DatePicker
                             label="Week Start Date"
                             value={formData.weekStartDate}
@@ -160,9 +161,10 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                                 }
                             }}
                         />
-                    </Grid>
+                    </Box>
                     
-                    <Grid item xs={6}>
+                    {/* Week End Date */}
+                    <Box sx={{ mb: 1 }}>
                         <DatePicker
                             label="Week End Date"
                             value={formData.weekEndDate}
@@ -175,28 +177,28 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                                 }
                             }}
                         />
-                    </Grid>
+                    </Box>
                     
-                    <Grid item xs={12}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Class</InputLabel>
-                            <Select
-                                value={formData.classId}
-                                onChange={handleInputChange('classId')}
-                                label="Class"
-                            >
-                                {classes.map((cls) => (
-                                    <MenuItem key={cls.id} value={cls.id}>
-                                        {cls.name} ({cls.ageGroup})
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {/* Class */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                            value={formData.classId}
+                            onChange={handleInputChange('classId')}
+                            label="Class"
+                        >
+                            {classes.map((cls) => (
+                                <MenuItem key={cls.id} value={cls.id}>
+                                    {cls.name} ({cls.ageGroup})
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     
+                    {/* Schedules Section */}
                     {formData.classId && (
-                        <Grid item xs={12}>
-                            <Typography variant="h6" gutterBottom>
+                        <Box sx={{ mb: 1 }}>
+                            <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                                 Select Schedules for {getSelectedClassName()}
                             </Typography>
                             <Autocomplete
@@ -235,6 +237,7 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                                 )}
                             />
                             
+                            {/* Selected Schedules Count */}
                             {formData.schedules.length > 0 && (
                                 <Box mt={2}>
                                     <Typography variant="body2" color="text.secondary">
@@ -242,9 +245,9 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                                     </Typography>
                                 </Box>
                             )}
-                        </Grid>
+                        </Box>
                     )}
-                </Grid>
+                </Box>
             </DialogContent>
             
             <DialogActions sx={{ p: 3, pt: 1 }}>

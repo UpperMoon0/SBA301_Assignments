@@ -104,81 +104,82 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
             </DialogTitle>
             
             <DialogContent>
-                <Grid container spacing={3} sx={{ mt: 1 }}>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Activity Name"
-                            value={formData.name}
-                            onChange={handleInputChange('name')}
-                            required
-                            variant="outlined"
-                        />
-                    </Grid>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
+                    {/* Activity Name */}
+                    <TextField
+                        fullWidth
+                        label="Activity Name"
+                        value={formData.name}
+                        onChange={handleInputChange('name')}
+                        required
+                        variant="outlined"
+                        sx={{ mb: 1 }}
+                    />
                     
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Description"
-                            value={formData.description}
-                            onChange={handleInputChange('description')}
-                            multiline
-                            rows={3}
-                            variant="outlined"
-                        />
-                    </Grid>
+                    {/* Description */}
+                    <TextField
+                        fullWidth
+                        label="Description"
+                        value={formData.description}
+                        onChange={handleInputChange('description')}
+                        multiline
+                        rows={3}
+                        variant="outlined"
+                        sx={{ mb: 1 }}
+                    />
                     
-                    <Grid item xs={6}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Activity Type</InputLabel>
-                            <Select
-                                value={formData.type}
-                                onChange={handleInputChange('type')}
-                                label="Activity Type"
-                            >
-                                {activityTypes.map((type) => (
-                                    <MenuItem key={type} value={type}>
-                                        {type}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {/* Activity Type */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Activity Type</InputLabel>
+                        <Select
+                            value={formData.type}
+                            onChange={handleInputChange('type')}
+                            label="Activity Type"
+                        >
+                            {activityTypes.map((type) => (
+                                <MenuItem key={type} value={type}>
+                                    {type}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     
-                    <Grid item xs={6}>
-                        <TextField
-                            fullWidth
-                            label="Duration (minutes)"
-                            type="number"
-                            value={formData.duration}
-                            onChange={handleInputChange('duration')}
-                            required
-                            variant="outlined"
-                            inputProps={{ min: 1, max: 120 }}
-                        />
-                    </Grid>
+                    {/* Duration */}
+                    <TextField
+                        fullWidth
+                        label="Duration (minutes)"
+                        type="number"
+                        value={formData.duration}
+                        onChange={handleInputChange('duration')}
+                        required
+                        variant="outlined"
+                        inputProps={{ min: 1, max: 120 }}
+                        sx={{ mb: 1 }}
+                    />
                     
-                    <Grid item xs={12}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Age Group</InputLabel>
-                            <Select
-                                value={formData.ageGroup}
-                                onChange={handleInputChange('ageGroup')}
-                                label="Age Group"
-                            >
-                                {ageGroups.map((group) => (
-                                    <MenuItem key={group} value={group}>
-                                        {group}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {/* Age Group */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Age Group</InputLabel>
+                        <Select
+                            value={formData.ageGroup}
+                            onChange={handleInputChange('ageGroup')}
+                            label="Age Group"
+                        >
+                            {ageGroups.map((group) => (
+                                <MenuItem key={group} value={group}>
+                                    {group}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     
-                    <Grid item xs={12}>
-                        <Typography variant="h6" gutterBottom>
+                    {/* Materials Section */}
+                    <Box sx={{ mb: 1 }}>
+                        <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                             Materials Needed
                         </Typography>
+                        
+                        {/* Material Input */}
                         <Box display="flex" gap={1} mb={2}>
                             <TextField
                                 fullWidth
@@ -189,15 +190,17 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
                                 variant="outlined"
                                 size="small"
                             />
-                            <Button 
-                                variant="contained" 
+                            <Button
+                                variant="contained"
                                 onClick={handleAddMaterial}
                                 disabled={!materialInput.trim()}
+                                sx={{ minWidth: 'auto', px: 3 }}
                             >
                                 Add
                             </Button>
                         </Box>
                         
+                        {/* Materials List */}
                         <Box display="flex" flexWrap="wrap" gap={1}>
                             {formData.materials.map((material, index) => (
                                 <Chip
@@ -209,8 +212,8 @@ function ActivityForm({ open, onClose, onSave, activity = null }) {
                                 />
                             ))}
                         </Box>
-                    </Grid>
-                </Grid>
+                    </Box>
+                </Box>
             </DialogContent>
             
             <DialogActions sx={{ p: 3, pt: 1 }}>

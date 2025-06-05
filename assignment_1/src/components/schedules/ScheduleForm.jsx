@@ -115,71 +115,69 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
             </DialogTitle>
             
             <DialogContent>
-                <Grid container spacing={3} sx={{ mt: 1 }}>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            label="Schedule Name"
-                            value={formData.name}
-                            onChange={handleInputChange('name')}
-                            required
-                            variant="outlined"
-                        />
-                    </Grid>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
+                    {/* Class */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                            value={formData.classId}
+                            onChange={handleInputChange('classId')}
+                            label="Class"
+                        >
+                            {classes.map((cls) => (
+                                <MenuItem key={cls.id} value={cls.id}>
+                                    {cls.name} ({cls.ageGroup})
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    {/* Schedule Name */}
+                    <TextField
+                        fullWidth
+                        label="Schedule Name"
+                        value={formData.name}
+                        onChange={handleInputChange('name')}
+                        required
+                        variant="outlined"
+                        sx={{ mb: 1 }}
+                    />
                     
-                    <Grid item xs={6}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Day of Week</InputLabel>
-                            <Select
-                                value={formData.dayOfWeek}
-                                onChange={handleInputChange('dayOfWeek')}
-                                label="Day of Week"
-                            >
-                                {daysOfWeek.map((day) => (
-                                    <MenuItem key={day} value={day}>
-                                        {day}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {/* Day of Week */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Day of Week</InputLabel>
+                        <Select
+                            value={formData.dayOfWeek}
+                            onChange={handleInputChange('dayOfWeek')}
+                            label="Day of Week"
+                        >
+                            {daysOfWeek.map((day) => (
+                                <MenuItem key={day} value={day}>
+                                    {day}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     
-                    <Grid item xs={6}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Time Slot</InputLabel>
-                            <Select
-                                value={formData.timeSlot}
-                                onChange={handleInputChange('timeSlot')}
-                                label="Time Slot"
-                            >
-                                {timeSlots.map((slot) => (
-                                    <MenuItem key={slot} value={slot}>
-                                        {slot}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
+                    {/* Time Slot */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Time Slot</InputLabel>
+                        <Select
+                            value={formData.timeSlot}
+                            onChange={handleInputChange('timeSlot')}
+                            label="Time Slot"
+                        >
+                            {timeSlots.map((slot) => (
+                                <MenuItem key={slot} value={slot}>
+                                    {slot}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     
-                    <Grid item xs={12}>
-                        <FormControl fullWidth required>
-                            <InputLabel>Class</InputLabel>
-                            <Select
-                                value={formData.classId}
-                                onChange={handleInputChange('classId')}
-                                label="Class"
-                            >
-                                {classes.map((cls) => (
-                                    <MenuItem key={cls.id} value={cls.id}>
-                                        {cls.name} ({cls.ageGroup})
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    
-                    <Grid item xs={12}>
-                        <Typography variant="h6" gutterBottom>
+                    {/* Activities Section */}
+                    <Box sx={{ mb: 1 }}>
+                        <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
                             Activities
                         </Typography>
                         <Autocomplete
@@ -218,6 +216,7 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                             )}
                         />
                         
+                        {/* Total Duration Display */}
                         {formData.activities.length > 0 && (
                             <Box mt={2}>
                                 <Typography variant="body2" color="text.secondary">
@@ -225,8 +224,8 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                                 </Typography>
                             </Box>
                         )}
-                    </Grid>
-                </Grid>
+                    </Box>
+                </Box>
             </DialogContent>
             
             <DialogActions sx={{ p: 3, pt: 1 }}>
