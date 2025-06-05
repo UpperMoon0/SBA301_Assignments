@@ -3,7 +3,7 @@ import { Container, Dialog, DialogTitle, DialogContent, DialogActions, Button, T
 import { enqueueSnackbar } from 'notistack';
 import WeeklyScheduleView from './WeeklyScheduleView';
 import WeeklyScheduleForm from './WeeklyScheduleForm';
-import { WeeklyScheduleService, ScheduleService, ClassService } from '../../services/DataService';
+import { WeeklyScheduleService, ScheduleService, ClassService, ActivityService } from '../../services/DataService';
 
 function WeeklyScheduleManagement() {
     const [weeklySchedules, setWeeklySchedules] = useState([]);
@@ -23,10 +23,12 @@ function WeeklyScheduleManagement() {
         const weeklySchedulesData = WeeklyScheduleService.getAll();
         const schedulesData = ScheduleService.getAll();
         const classesData = ClassService.getAll();
+        const activitiesData = ActivityService.getAll();
         
         setWeeklySchedules(weeklySchedulesData);
         setSchedules(schedulesData);
         setClasses(classesData);
+        setActivities(activitiesData);
     };
 
     const handleCreate = () => {
