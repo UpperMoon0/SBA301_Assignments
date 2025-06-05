@@ -18,27 +18,36 @@ import {
 import { useState, useEffect } from "react";
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const timeSlots = [
-    '08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00',
-    '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00',
-    '16:00-17:00', '08:00-12:00', '13:00-17:00', '08:00-17:00'
+const timeOptions = [
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30', '17:00'
 ];
 
 function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activities }) {
     const [formData, setFormData] = useState({
         name: '',
         dayOfWeek: '',
-        timeSlot: '',
+        startTime: '',
         classId: '',
         activities: []
     });
 
     useEffect(() => {
         if (schedule) {
+            // Handle both old timeSlot format and new startTime format
+            let startTime = '';
+            if (schedule.startTime) {
+                startTime = schedule.startTime;
+            } else if (schedule.timeSlot) {
+                // Extract start time from old timeSlot format (e.g., "08:00-12:00" -> "08:00")
+                startTime = schedule.timeSlot.split('-')[0];
+            }
+            
             setFormData({
                 name: schedule.name || '',
                 dayOfWeek: schedule.dayOfWeek || '',
-                timeSlot: schedule.timeSlot || '',
+                startTime: startTime,
                 classId: schedule.classId || '',
                 activities: schedule.activities || []
             });
@@ -46,7 +55,7 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
             setFormData({
                 name: '',
                 dayOfWeek: '',
-                timeSlot: '',
+                startTime: '',
                 classId: '',
                 activities: []
             });
@@ -68,8 +77,13 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
     };
 
     const handleSubmit = () => {
-        if (formData.name && formData.dayOfWeek && formData.timeSlot && formData.classId) {
-            onSave(formData);
+        if (formData.name && formData.dayOfWeek && formData.startTime && formData.classId && formData.activities.length > 0) {
+            const submitData = {
+                ...formData,
+                timeSlot: getTimeSlot(), // Include calculated timeSlot for backward compatibility
+                endTime: calculateEndTime() // Include calculated end time
+            };
+            onSave(submitData);
             onClose();
         }
     };
@@ -98,6 +112,28 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
             const activity = activities.find(act => act.id === activityId);
             return total + (activity ? activity.duration : 0);
         }, 0);
+    };
+
+    const calculateEndTime = () => {
+        if (!formData.startTime || formData.activities.length === 0) {
+            return '';
+        }
+        
+        const totalDuration = getTotalDuration();
+        const [hours, minutes] = formData.startTime.split(':').map(Number);
+        const startDate = new Date();
+        startDate.setHours(hours, minutes, 0, 0);
+        
+        const endDate = new Date(startDate.getTime() + totalDuration * 60000);
+        const endHours = endDate.getHours().toString().padStart(2, '0');
+        const endMinutes = endDate.getMinutes().toString().padStart(2, '0');
+        
+        return `${endHours}:${endMinutes}`;
+    };
+
+    const getTimeSlot = () => {
+        const endTime = calculateEndTime();
+        return endTime ? `${formData.startTime}-${endTime}` : '';
     };
 
     return (
@@ -159,21 +195,36 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                         </Select>
                     </FormControl>
                     
-                    {/* Time Slot */}
+                    {/* Start Time */}
                     <FormControl fullWidth required sx={{ mb: 1 }}>
-                        <InputLabel>Time Slot</InputLabel>
+                        <InputLabel>Start Time</InputLabel>
                         <Select
-                            value={formData.timeSlot}
-                            onChange={handleInputChange('timeSlot')}
-                            label="Time Slot"
+                            value={formData.startTime}
+                            onChange={handleInputChange('startTime')}
+                            label="Start Time"
                         >
-                            {timeSlots.map((slot) => (
-                                <MenuItem key={slot} value={slot}>
-                                    {slot}
+                            {timeOptions.map((time) => (
+                                <MenuItem key={time} value={time}>
+                                    {time}
                                 </MenuItem>
                             ))}
                         </Select>
                     </FormControl>
+
+                    {/* Calculated End Time Display */}
+                    {formData.startTime && formData.activities.length > 0 && (
+                        <Box sx={{ mb: 1, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                            <Typography variant="body2" color="text.secondary" gutterBottom>
+                                Calculated Schedule:
+                            </Typography>
+                            <Typography variant="h6" color="primary">
+                                {formData.startTime} - {calculateEndTime()}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                                Duration: {getTotalDuration()} minutes
+                            </Typography>
+                        </Box>
+                    )}
                     
                     {/* Activities Section */}
                     <Box sx={{ mb: 1 }}>
@@ -216,14 +267,18 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                             )}
                         />
                         
-                        {/* Total Duration Display */}
-                        {formData.activities.length > 0 && (
-                            <Box mt={2}>
-                                <Typography variant="body2" color="text.secondary">
-                                    Total Duration: {getTotalDuration()} minutes
+                        {/* Activity Selection Info */}
+                        <Box mt={2}>
+                            {formData.activities.length > 0 ? (
+                                <Typography variant="body2" color="success.main">
+                                    ✓ {formData.activities.length} activities selected • Total Duration: {getTotalDuration()} minutes
                                 </Typography>
-                            </Box>
-                        )}
+                            ) : (
+                                <Typography variant="body2" color="warning.main">
+                                    ⚠ Please select at least one activity to calculate schedule end time
+                                </Typography>
+                            )}
+                        </Box>
                     </Box>
                 </Box>
             </DialogContent>
@@ -232,10 +287,10 @@ function ScheduleForm({ open, onClose, onSave, schedule = null, classes, activit
                 <Button onClick={onClose} color="inherit">
                     Cancel
                 </Button>
-                <Button 
-                    onClick={handleSubmit} 
+                <Button
+                    onClick={handleSubmit}
                     variant="contained"
-                    disabled={!formData.name || !formData.dayOfWeek || !formData.timeSlot || !formData.classId}
+                    disabled={!formData.name || !formData.dayOfWeek || !formData.startTime || !formData.classId || formData.activities.length === 0}
                 >
                     {schedule ? 'Update' : 'Create'}
                 </Button>
