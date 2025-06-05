@@ -136,6 +136,22 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
             
             <DialogContent>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mt: 1 }}>
+                    {/* Class */}
+                    <FormControl fullWidth required sx={{ mb: 1 }}>
+                        <InputLabel>Class</InputLabel>
+                        <Select
+                            value={formData.classId}
+                            onChange={handleInputChange('classId')}
+                            label="Class"
+                        >
+                            {classes.map((cls) => (
+                                <MenuItem key={cls.id} value={cls.id}>
+                                    {cls.name} ({cls.ageGroup})
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
                     {/* Weekly Schedule Name */}
                     <TextField
                         fullWidth
@@ -178,22 +194,6 @@ function WeeklyScheduleForm({ open, onClose, onSave, weeklySchedule = null, clas
                             }}
                         />
                     </Box>
-                    
-                    {/* Class */}
-                    <FormControl fullWidth required sx={{ mb: 1 }}>
-                        <InputLabel>Class</InputLabel>
-                        <Select
-                            value={formData.classId}
-                            onChange={handleInputChange('classId')}
-                            label="Class"
-                        >
-                            {classes.map((cls) => (
-                                <MenuItem key={cls.id} value={cls.id}>
-                                    {cls.name} ({cls.ageGroup})
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
                     
                     {/* Schedules Section */}
                     {formData.classId && (
